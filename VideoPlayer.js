@@ -129,10 +129,10 @@ export default class VideoPlayer extends Component {
                 // marginBottom: new Animated.Value(0),
                 opacity: new Animated.Value(initialValue),
             },
-            // topControl: {
-            //     marginTop: new Animated.Value(0),
-            //     opacity: new Animated.Value(initialValue),
-            // },
+            topControl: {
+                marginTop: new Animated.Value(0),
+                opacity: new Animated.Value(initialValue),
+            },
             video: {
                 opacity: new Animated.Value(1),
             },
@@ -314,10 +314,10 @@ export default class VideoPlayer extends Component {
      */
     hideControlAnimation() {
         Animated.parallel([
-            // Animated.timing(
-            //     this.animations.topControl.opacity,
-            //     { toValue: 0 }
-            // ),
+            Animated.timing(
+                this.animations.topControl.opacity,
+                { toValue: 0 }
+            ),
             // Animated.timing(
             //     this.animations.topControl.marginTop,
             //     { toValue: -100 }
@@ -340,10 +340,10 @@ export default class VideoPlayer extends Component {
      */
     showControlAnimation() {
         Animated.parallel([
-            // Animated.timing(
-            //     this.animations.topControl.opacity,
-            //     { toValue: 1 }
-            // ),
+            Animated.timing(
+                this.animations.topControl.opacity,
+                { toValue: 1 }
+            ),
             // Animated.timing(
             //     this.animations.topControl.marginTop,
             //     { toValue: 0 }
@@ -687,8 +687,8 @@ export default class VideoPlayer extends Component {
      * pan responders.
      */
     componentWillMount() {
-        this.initSeekPanResponder();
-        this.initVolumePanResponder();
+        // this.initSeekPanResponder();
+        // this.initVolumePanResponder();
     }
 
     /**
@@ -885,18 +885,19 @@ export default class VideoPlayer extends Component {
                     marginTop: this.animations.topControl.marginTop,
                 }
             ]}>
-                <ImageBackground
+                {volumeControl}
+                {/* <ImageBackground
                     source={require('./assets/img/top-vignette.png')}
                     style={[styles.controls.column]}
-                    imageStyle={[styles.controls.vignette]}>
-                    <View style={styles.controls.topControlGroup}>
-                        {backControl}
-                        <View style={styles.controls.pullRight}>
-                            {volumeControl}
-                            {fullscreenControl}
-                        </View>
+                    imageStyle={[styles.controls.vignette]}> */}
+                {/* <View style={styles.controls.topControlGroup}>
+                    {backControl}
+                    <View style={styles.controls.pullRight}>
+                        {volumeControl}
+                        {fullscreenControl}
                     </View>
-                </ImageBackground>
+                </View> */}
+                {/* </ImageBackground> */}
             </Animated.View>
         );
     }
@@ -962,8 +963,8 @@ export default class VideoPlayer extends Component {
      */
     renderBottomControls() {
 
-        const timerControl = this.props.disableTimer ? this.renderNullControl() : this.renderTimer();
-        const seekbarControl = this.props.disableSeekbar ? this.renderNullControl() : this.renderSeekbar();
+        // const timerControl = this.props.disableTimer ? this.renderNullControl() : this.renderTimer();
+        // const seekbarControl = this.props.disableSeekbar ? this.renderNullControl() : this.renderSeekbar();
         const playPauseControl = this.props.disablePlayPause ? this.renderNullControl() : this.renderPlayPause();
 
         return (
@@ -979,15 +980,15 @@ export default class VideoPlayer extends Component {
                     style={[ styles.controls.column ]}
                     imageStyle={[ styles.controls.vignette ]}>
                     { seekbarControl } */}
-                <View style={[
+                {/* <View style={[
                     styles.controls.row,
                     styles.controls.bottomControlGroup
-                ]}>
+                ]}> */}
                     {playPauseControl}
                     {/* { this.renderTitle() } */}
                     {/* { timerControl } */}
 
-                </View>
+                {/* </View> */}
                 {/* </ImageBackground> */}
             </Animated.View>
         );
@@ -1150,7 +1151,7 @@ export default class VideoPlayer extends Component {
                         source={this.props.source}
                     />
                     {this.renderError()}
-                    {/* { this.renderTopControls() } */}
+                    {/* {this.renderTopControls()} */}
                     {/* { this.renderLoader() } */}
                     {this.renderBottomControls()}
                 </View>
@@ -1244,9 +1245,12 @@ const styles = {
             justifyContent: 'center',
         },
         top: {
-            flex: 1,
-            alignItems: 'stretch',
-            justifyContent: 'flex-start',
+            // flex: 1,
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
         },
         bottom: {
             alignItems: 'center',
@@ -1278,7 +1282,7 @@ const styles = {
         },
         playPause: {
             position: 'relative',
-            width: 80,
+            width: null,
             zIndex: 0
         },
         title: {
@@ -1303,9 +1307,9 @@ const styles = {
     volume: StyleSheet.create({
         container: {
             alignItems: 'center',
-            justifyContent: 'flex-start',
+            justifyContent: 'flex-end',
             flexDirection: 'row',
-            height: 1,
+            height: 2,
             marginLeft: 20,
             marginRight: 20,
             width: 150,
